@@ -88,6 +88,16 @@ describe('Escrow', () => {
 
     })
     
+    describe('Deposits', () => {
+        beforeEach(async () => {
+            const transaction = await escrow.connect(buyer).depositEarnest(1, { value: tokens(5) })
+            await transaction.wait()
+        })
 
+        it('Updates contract balance', async () => {
+            const result = await escrow.getBalance()
+            expect(result).to.be.equal(tokens(5))
+        })
+    })
     
 })
