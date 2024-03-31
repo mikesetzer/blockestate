@@ -62,7 +62,27 @@ describe('Escrow', () => {
     })
 
     describe('Listing', () => {
-        it('Updates ownership', async() => {
+        it('Updates as listed', async () => {
+            const result = await escrow.isListed(1)
+            expect(result).to.be.equal(true)
+        })
+
+        it('Returns buyer', async () => {
+            const result = await escrow.buyer(1)
+            expect(result).to.be.equal(buyer.address)
+        })
+
+        it('Returns purchase price', async () => {
+            const result = await escrow.purchasePrice(1)
+            expect(result).to.be.equal(tokens(10))
+        })
+
+        it('Returns escrow amount', async () => {
+            const result = await escrow.escrowAmount(1)
+            expect(result).to.be.equal(tokens(5))
+        })
+
+        it('Updates ownership', async () => {
             expect(await realEstate.ownerOf(1)).to.be.equal(escrow.address)
         })
 
