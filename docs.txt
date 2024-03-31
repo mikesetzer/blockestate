@@ -1,0 +1,8 @@
+Tools Used:
+
+Node - Infrastructure
+React - Frontend
+Solidity - Smart contract language
+Hardhat - Creating and deploying smart contracts
+EthersJS - Talking to smart contracts from Javascript
+OpenZeppelin - Creating NFTs
