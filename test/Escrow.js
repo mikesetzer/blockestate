@@ -8,9 +8,8 @@ const tokens = (n) => {
 describe('Escrow', () => {
     let buyer, seller, inspector, lender
     let realEstate, escrow
-    
-    it('saves the addresses', async () => {
 
+    beforeEach(async () => {
         // Get signers from blockchain with HardHat & setup accounts
         [buyer, seller, inspector, lender] = await ethers.getSigners()
 
@@ -22,6 +21,7 @@ describe('Escrow', () => {
         let transaction = await realEstate.connect(seller).mint("https://ipfs.io/ipfs/QmTudSYeM7mz3PkYEWXWqPjomRPHogcMFSq7XAvsvsgAPS")
         await transaction.wait()
         
+        // Deploy Escrow
         const Escrow = await ethers.getContractFactory('Escrow')
         escrow = await Escrow.deploy(
             realEstate.address,
@@ -30,11 +30,44 @@ describe('Escrow', () => {
             lender.address
         )
 
-        let result = await escrow.nftAddress()
-        expect(result).to.be.equal(realEstate.address)
+        // Approve Property
+        transaction = await realEstate.connect(seller).approve(escrow.address, 1)
+        await transaction.wait()
 
-        result = await escrow.seller()
-        expect(result).to.be.equal(seller.address)
-        
+        // List Property
+        transaction = await escrow.connect(seller).list(1, buyer.address, tokens(10), tokens(5))
+        await transaction.wait()
     })
+
+    describe('Deployment', () => {
+        it('Returns NFT address', async() => {
+            const result = await escrow.nftAddress()
+            expect(result).to.be.equal(realEstate.address)
+        })
+
+        it('Returns seller', async() => {
+            const result = await escrow.seller()
+            expect(result).to.be.equal(seller.address)
+        })
+
+        it('Returns inspector', async() => {
+            const result = await escrow.inspector()
+            expect(result).to.be.equal(inspector.address)
+        })
+
+        it('Returns lender', async() => {
+            const result = await escrow.lender()
+            expect(result).to.be.equal(lender.address)
+        })
+    })
+
+    describe('Listing', () => {
+        it('Updates ownership', async() => {
+            expect(await realEstate.ownerOf(1)).to.be.equal(escrow.address)
+        })
+
+    })
+    
+
+    
 })
