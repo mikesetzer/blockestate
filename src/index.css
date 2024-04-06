@@ -13,6 +13,8 @@
   --clr-blue: #6C63FF;
   --clr-blue-2: #4c46b6;
   --clr-green: #4fb646;
+  --brand-color: #1abc9c;
+  --brand-color-rgb: 26, 188, 156;
 }
 
 body {
@@ -343,6 +345,90 @@ header {
   align-items: center;
 
   cursor: default;
+}
+
+/* Text Color */
+.text-brand {
+  color: var(--brand-color) !important;
+}
+
+/* Background Color */
+.bg-brand {
+  background-color: var(--brand-color) !important;
+}
+
+/* Button with Brand Color */
+.btn-brand {
+  color: #fff !important;
+  background-color: var(--brand-color) !important;
+  border-color: var(--brand-color) !important;
+}
+
+.btn-brand:hover {
+  background-color: darken(var(--brand-color), 10%) !important;
+  border-color: darken(var(--brand-color), 10%) !important;
+}
+
+/* Outline Button */
+.btn-outline-brand {
+  color: var(--brand-color) !important;
+  background-color: transparent !important;
+  border-color: var(--brand-color) !important;
+}
+
+.btn-outline-brand:hover {
+  color: #fff !important;
+  background-color: var(--brand-color) !important;
+  border-color: var(--brand-color) !important;
+}
+
+/* Brand Color for Borders */
+.border-brand {
+  border-color: var(--brand-color) !important;
+}
+
+/* Utilities for Text Hover */
+.text-brand-hover:hover {
+  color: var(--brand-color) !important;
+}
+
+/* Utilities for Background Color Hover */
+.bg-brand-hover:hover {
+  background-color: var(--brand-color) !important;
+}
+
+/* Button with Brand Color Outline */
+.btn-outline-primary {
+  color: var(--brand-color);
+  background-color: transparent;
+  border: 1px solid var(--brand-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  color: #fff;
+  background-color: var(--brand-color);
+  border-color: var(--brand-color);
+}
+
+/* Optional: Adjust the focus outline to match the brand color */
+.btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(26, 188, 156, 0.5);
+}
+
+.custom-outline-primary {
+  color: var(--brand-color) !important;
+  /* Ensure it overrides Bootstrap styles */
+  background-color: transparent !important;
+  border-color: var(--brand-color) !important;
+  border: 1px solid var(--brand-color) !important;
+}
+
+.custom-outline-primary:hover {
+  color: #fff !important;
+  background-color: var(--brand-color) !important;
+  border-color: var(--brand-color) !important;
 }
 
 @media screen and (max-width: 768px) {

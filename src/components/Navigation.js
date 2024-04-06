@@ -1,43 +1,38 @@
+import React, {Link} from 'react';
 import { ethers } from 'ethers';
-import logo from '../assets/logo.svg';
+import { Navbar, Nav, Button, Container } from 'react-bootstrap';
 
 const Navigation = ({ account, setAccount }) => {
     const connectHandler = async () => {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const account = ethers.utils.getAddress(accounts[0])
+        const account = ethers.utils.getAddress(accounts[0]);
         setAccount(account);
-    }
+    };
 
     return (
-        <nav>
-            <ul className='nav__links'>
-                <li><a href="#">Buy</a></li>
-                <li><a href="#">Rent</a></li>
-                <li><a href="#">Sell</a></li>
-            </ul>
-
-            <div className='nav__brand'>
-                <img src={logo} alt="Logo" />
-                <h1>BlockEstate</h1>
-            </div>
-
-            {account ? (
-                <button
-                    type="button"
-                    className='nav__connect'
-                >
-                    {account.slice(0, 6) + '...' + account.slice(38, 42)}
-                </button>
-            ) : (
-                <button
-                    type="button"
-                    className='nav__connect'
-                    onClick={connectHandler}
-                >
-                    Connect
-                </button>
-            )}
-        </nav>
+      <Container>
+        <Navbar expand="lg" className="justify-content-between">
+          <Nav>
+              <Button className="custom-outline-primary me-2" as={Nav.Link} href="#buy">Buy</Button>
+              <Button className="custom-outline-primary me-2" as={Nav.Link} href="#rent">Rent</Button>
+              <Button className="custom-outline-primary" as={Nav.Link} href="#sell">Sell</Button>
+          </Nav>
+          <Navbar.Brand className="mx-auto">
+            <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <h1 className="text-brand">BlockEstate</h1>
+            </a>
+        </Navbar.Brand>
+          {account ? (
+            <Button variant="outline-success" disabled className="ms-lg-5">
+                {account.slice(0, 6) + '...' + account.slice(38, 42)}
+            </Button>
+          ) : (
+            <Button className="custom-outline-primary ms-lg-5" onClick={connectHandler}>
+                Connect
+            </Button>
+          )}
+        </Navbar>
+      </Container>
     );
 }
 
