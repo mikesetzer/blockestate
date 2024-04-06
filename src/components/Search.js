@@ -7,13 +7,12 @@ const Search = () => {
             <Container>
                 <Row className="justify-content-center">
                     <Col md={8} lg={6} className="d-flex flex-column justify-content-center">
-                        <h2 className="text-center mb-3">Search it. Explore it. Buy it.</h2>
+                        <h2 className="text-center mb-3">Find a Property</h2>
                         <Form>
                             <Form.Group controlId="searchQuery">
                                 <Form.Control
                                     type="text"
-                                    placeholder="Enter an address, neighborhood, city, or ZIP code"
-                                    className="header__search"
+                                    placeholder="Enter an address, city, or ZIP code"
                                 />
                             </Form.Group>
                         </Form>

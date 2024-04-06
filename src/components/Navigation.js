@@ -13,9 +13,8 @@ const Navigation = ({ account, setAccount }) => {
       <Container>
         <Navbar expand="lg" className="justify-content-between">
           <Nav>
-              <Button className="custom-outline-primary me-2" as={Nav.Link} href="#buy">Buy</Button>
-              <Button className="custom-outline-primary me-2" as={Nav.Link} href="#rent">Rent</Button>
-              <Button className="custom-outline-primary" as={Nav.Link} href="#sell">Sell</Button>
+              <Button className="custom-outline-primary px-3 me-2" as={Nav.Link} href="#buy">Buy</Button>
+              <Button className="custom-outline-primary px-3" as={Nav.Link} href="#sell">Sell</Button>
           </Nav>
           <Navbar.Brand className="mx-auto">
             <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>

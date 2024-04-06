@@ -117,7 +117,7 @@ const Home = ({ home, provider, account, escrow, togglePop }) => {
                             <ListGroup.Item>Location: {home.address}</ListGroup.Item>
                         </ListGroup>
                         {owner ? (
-                            <Card.Text>Owned by: {owner}</Card.Text>
+                            <Card.Text className="text-brand">Owned by: {owner}</Card.Text>
                         ) : (
                             <>
                                 {account === inspector && (

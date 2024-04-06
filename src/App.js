@@ -78,7 +78,7 @@ function App() {
       <Search />
 
       <Container className="mt-4">
-        <h3>Homes For You</h3>
+        <h3>Available Listings</h3>
         <hr />
 
         <Row xs={1} md={2} lg={3} className="g-4">
