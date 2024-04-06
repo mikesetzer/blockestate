@@ -1,9 +1,7 @@
-// SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
 /**
  * @title IERC721 Interface
- * @dev Minimal interface for NFT contract interaction
  */
 interface IERC721 {
     function transferFrom(address from, address to, uint256 tokenId) external;
@@ -11,9 +9,7 @@ interface IERC721 {
 
 /**
  * @title Escrow Contract for NFT-based Real Estate Transactions
- * @notice This contract manages the escrow process for buying real estate represented as NFTs.
- * It handles listing properties, depositing earnest money, approvals by various parties,
- * and finalizing or canceling sales.
+ * This contract manages the escrow process for buying real estate represented as NFTs.
  */
 contract Escrow {
     address public nftAddress;
@@ -21,7 +17,7 @@ contract Escrow {
     address public inspector;
     address public lender;
 
-    // State variables to track listing and approval statuses
+    // State variables
     mapping(uint256 => bool) public isListed;
     mapping(uint256 => uint256) public purchasePrice;
     mapping(uint256 => uint256) public escrowAmount;
@@ -50,7 +46,7 @@ contract Escrow {
      * @param _nftAddress Address of the NFT contract representing real estate
      * @param _seller Address of the seller (owner) of the property
      * @param _inspector Address of the property inspector
-     * @param _lender Address of the lender (if applicable)
+     * @param _lender Address of the lender
      */
     constructor(
         address _nftAddress,
@@ -85,9 +81,7 @@ contract Escrow {
     }
 
     /**
-     * @notice Deposits earnest money into escrow by the buyer
-     * @dev Requires the deposit to be at least the escrow amount set by the seller
-     * @param nftID The unique identifier of the property NFT
+     * @notice Deposits earnest money into escrow
      */
     function depositEarnest(uint256 nftID) public payable onlyBuyer(nftID) {
         require(msg.value >= escrowAmount[nftID], "Insufficient deposit");
@@ -95,8 +89,7 @@ contract Escrow {
 
     /**
      * @notice Updates the inspection status of the property
-     * @param nftID The unique identifier of the property NFT
-     * @param passed Boolean representing whether the property passed inspection
+     * @param passed Boolean for passed/failed inspection
      */
     function updateInspectionStatus(
         uint256 nftID,
@@ -106,8 +99,7 @@ contract Escrow {
     }
 
     /**
-     * @notice Marks the sale as approved by the caller, who can be the buyer, seller, or lender
-     * @param nftID The unique identifier of the property NFT
+     * @notice Marks the sale as approved by the caller
      */
     function approveSale(uint256 nftID) public {
         approval[nftID][msg.sender] = true;
@@ -137,7 +129,6 @@ contract Escrow {
 
     /**
      * @notice Cancels the sale and handles the earnest deposit based on inspection status
-     * @param nftID The unique identifier of the property NFT
      */
     function cancelSale(uint256 nftID) public {
         require(isListed[nftID], "Property not listed");
@@ -146,12 +137,11 @@ contract Escrow {
         } else {
             payable(seller).transfer(escrowAmount[nftID]);
         }
-        // Assuming refund of the escrow amount only, not the full balance
         isListed[nftID] = false;
     }
 
     /**
-     * @notice Allows the contract to receive Ether directly without a function call
+     * @notice Allows the contract to receive Ether directly
      */
     receive() external payable {}
 
