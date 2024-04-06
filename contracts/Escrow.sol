@@ -8,7 +8,7 @@ interface IERC721 {
 }
 
 /**
- * @title Escrow Contract for NFT-based Real Estate Transactions
+ * Escrow Contract for NFT-based Real Estate Transactions
  * This contract manages the escrow process for buying real estate represented as NFTs.
  */
 contract Escrow {
@@ -42,11 +42,11 @@ contract Escrow {
     }
 
     /**
-     * @notice Constructor to initialize the contract with relevant addresses
-     * @param _nftAddress Address of the NFT contract representing real estate
-     * @param _seller Address of the seller (owner) of the property
-     * @param _inspector Address of the property inspector
-     * @param _lender Address of the lender
+     * Constructor to initialize the contract with relevant addresses
+     * _nftAddress Address of the NFT contract representing real estate
+     * _seller Address of the seller (owner) of the property
+     * _inspector Address of the property inspector
+     * _lender Address of the lender
      */
     constructor(
         address _nftAddress,
@@ -61,11 +61,11 @@ contract Escrow {
     }
 
     /**
-     * @notice Lists a property for sale, transferring the NFT to this contract
-     * @param nftID The unique identifier of the property NFT
-     * @param buyer Address of the potential buyer
-     * @param price Sale price of the property
-     * @param escrow Required escrow amount to secure the sale
+     * Lists a property for sale, transferring the NFT to this contract
+     * nftID The unique identifier of the property NFT
+     * buyer Address of the potential buyer
+     * price Sale price of the property
+     * escrow Required escrow amount to secure the sale
      */
     function list(
         uint256 nftID,
@@ -81,15 +81,15 @@ contract Escrow {
     }
 
     /**
-     * @notice Deposits earnest money into escrow
+     * Deposits earnest money into escrow
      */
     function depositEarnest(uint256 nftID) public payable onlyBuyer(nftID) {
         require(msg.value >= escrowAmount[nftID], "Insufficient deposit");
     }
 
     /**
-     * @notice Updates the inspection status of the property
-     * @param passed Boolean for passed/failed inspection
+     * Updates the inspection status of the property
+     * passed Boolean for passed/failed inspection
      */
     function updateInspectionStatus(
         uint256 nftID,
@@ -99,16 +99,16 @@ contract Escrow {
     }
 
     /**
-     * @notice Marks the sale as approved by the caller
+     * Marks the sale as approved by the caller
      */
     function approveSale(uint256 nftID) public {
         approval[nftID][msg.sender] = true;
     }
 
     /**
-     * @notice Finalizes the sale, transferring the property to the buyer and funds to the seller
-     * @dev Requires all conditions to be met: inspection passed, all parties' approval, and sufficient funds
-     * @param nftID The unique identifier of the property NFT
+     * Finalizes the sale, transferring the property to the buyer and funds to the seller
+     * Requires all conditions to be met: inspection passed, all parties' approval, and sufficient funds
+     * nftID The unique identifier of the property NFT
      */
     function finalizeSale(uint256 nftID) public {
         require(inspectionPassed[nftID], "Inspection not passed");
@@ -128,7 +128,7 @@ contract Escrow {
     }
 
     /**
-     * @notice Cancels the sale and handles the earnest deposit based on inspection status
+     * Cancels the sale and handles the earnest deposit based on inspection status
      */
     function cancelSale(uint256 nftID) public {
         require(isListed[nftID], "Property not listed");
@@ -141,13 +141,13 @@ contract Escrow {
     }
 
     /**
-     * @notice Allows the contract to receive Ether directly
+     * Allows the contract to receive Ether directly
      */
     receive() external payable {}
 
     /**
-     * @notice Returns the contract's current Ether balance
-     * @return The Ether balance held by the contract
+     * Returns the contract's current Ether balance
+     * Returns The Ether balance held by the contract
      */
     function getBalance() public view returns (uint256) {
         return address(this).balance;
