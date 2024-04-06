@@ -36,3 +36,18 @@ In a separate terminal execute:
 ### 7. Start frontend
 
 `$ npm run start`
+
+## Running in Dev (After Setup)
+
+### 1. Run Hardhat node
+
+`$ npx hardhat node`
+
+### 2. Run contract deployment script
+
+In a separate terminal execute:
+`$ npx hardhat run ./scripts/deploy.js --network localhost`
+
+### 3. Start frontend
+
+`$ npm run start`
